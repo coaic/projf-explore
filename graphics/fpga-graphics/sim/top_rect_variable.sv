@@ -1,11 +1,11 @@
-// Project F: FPGA Graphics - Square (Verilator SDL)
+// Project F: FPGA Graphics - rect (Verilator SDL)
 // (C)2023 Will Green, open source hardware released under the MIT License
 // Learn more at https://projectf.io/posts/fpga-graphics/
 
 `default_nettype none
 `timescale 1ns / 1ps
 
-module top_square #(parameter CORDW=10) (  // coordinate width
+module top_rect_variable #(parameter CORDW=10) (  // coordinate width
     input  wire logic clk_pix,             // pixel clock
     input  wire logic sim_rst,             // sim reset
     output      logic [CORDW-1:0] sdl_sx,  // horizontal SDL position
@@ -31,18 +31,24 @@ module top_square #(parameter CORDW=10) (  // coordinate width
         .de
     );
 
-    // define a square with screen coordinates
-    logic square;
+    // define a rect with screen coordinates
+    parameter screen_width = 640;
+    parameter screen_height = 480;
+    parameter rect_width = 200;
+    parameter rect_height = 200;
+    parameter box_width = screen_height > rect_width ? rect_height : screen_height;
+    parameter box_height = screen_height > rect_height ? rect_height : screen_height;
+    logic rect;
     always_comb begin
-        square = (sx > 220 && sx < 420) && (sy > 140 && sy < 340);
+        rect = (sx > (rect_width / 2) && sx < (screen_width - (rect_width / 2))) && (sy > (rect_height / 2) && sy < (screen_height - (rect_height / 2)));
     end
 
-    // paint colour: white inside square, blue outside
+    // paint colour: white inside rect, blue outside
     logic [3:0] paint_r, paint_g, paint_b;
     always_comb begin
-        paint_r = (square) ? 4'hF : 4'h1;
-        paint_g = (square) ? 4'hF : 4'h3;
-        paint_b = (square) ? 4'hF : 4'h7;
+        paint_r = (rect) ? 4'hF : 4'h1;
+        paint_g = (rect) ? 4'hF : 4'h3;
+        paint_b = (rect) ? 4'hF : 4'h7;
     end
 
     // display colour: paint colour but black in blanking interval

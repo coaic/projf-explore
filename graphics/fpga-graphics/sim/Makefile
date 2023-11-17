@@ -6,6 +6,7 @@ VFLAGS = -O3 --x-assign fast --x-initial fast --noassert
 SDL_CFLAGS = `sdl2-config --cflags`
 SDL_LDFLAGS = `sdl2-config --libs`
 
+rect_variable: rect_variable.exe
 square: square.exe
 flag_ethiopia: flag_ethiopia.exe
 flag_sweden: flag_sweden.exe
@@ -19,7 +20,7 @@ colour: colour.exe
 		-cc $< --exe main_$(basename $@).cpp -o $(basename $@) \
 		-CFLAGS "${SDL_CFLAGS}" -LDFLAGS "${SDL_LDFLAGS}"
 
-all: square flag_ethiopia flag_sweden colour
+all: rect_variable square flag_ethiopia flag_sweden colour
 
 clean:
 	rm -rf ./obj_dir
