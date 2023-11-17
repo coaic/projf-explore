@@ -35,12 +35,14 @@ module top_rect_variable #(parameter CORDW=10) (  // coordinate width
     parameter screen_width = 640;
     parameter screen_height = 480;
     parameter rect_width = 200;
-    parameter rect_height = 200;
+    parameter rect_height = 400;
     parameter box_width = screen_height > rect_width ? rect_height : screen_height;
-    parameter box_height = screen_height > rect_height ? rect_height : screen_height;
+    parameter box_height = box_width;
+    // parameter box_height = screen_height > rect_height ? rect_height : screen_height;
     logic rect;
     always_comb begin
-        rect = (sx > (rect_width / 2) && sx < (screen_width - (rect_width / 2))) && (sy > (rect_height / 2) && sy < (screen_height - (rect_height / 2)));
+        rect = (sx > ((screen_width - rect_width) / 2)) && sx < (((screen_width - rect_width) / 2) + rect_width) && 
+                (sy > ((screen_height - rect_height) / 2)) && sy < (((screen_height - rect_height) / 2) + rect_height);
     end
 
     // paint colour: white inside rect, blue outside
