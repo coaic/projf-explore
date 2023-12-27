@@ -35,7 +35,7 @@ module top_rasterbars #(parameter CORDW=10) (  // coordinate width
     localparam V_RES_FULL = 525;  // vertical screen resolution (including blanking)
     localparam H_RES      = 640;  // horizontal screen resolution
 
-    localparam START_COLR = 12'h126;  // bar start colour (blue: 12'h126) (gold: 12'h640)
+    localparam START_COLR = 12'h640;  // bar start colour (blue: 12'h126) (gold: 12'h640)
     localparam COLR_NUM   = 10;       // colours steps in each bar (don't overflow)
     localparam LINE_NUM   =  2;       // lines of each colour
 
