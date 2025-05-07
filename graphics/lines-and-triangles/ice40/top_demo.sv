@@ -122,7 +122,7 @@ module top_demo (
     logic drawing;  // actively drawing
     logic clip;  // location is clipped
     logic signed [CORDW-1:0] drx, dry;  // draw coordinates
-    render_line #(  // switch module name to change demo
+    render_cube #(  // switch module name to change demo
         .CORDW(CORDW),
         .CIDXW(CIDXW),
         .SCALE(DRAW_SCALE)
