@@ -40,6 +40,7 @@ module top_rect_variable #(parameter CORDW=10) (  // coordinate width
     parameter box_height = box_width;
     // parameter box_height = screen_height > rect_height ? rect_height : screen_height;
     logic rect;
+    logic elipse;
     always_comb begin
         rect = (sx > ((screen_width - rect_width) / 2)) && sx < (((screen_width - rect_width) / 2) + rect_width) && 
                 (sy > ((screen_height - rect_height) / 2)) && sy < (((screen_height - rect_height) / 2) + rect_height);
