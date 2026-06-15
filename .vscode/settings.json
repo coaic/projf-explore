@@ -18,5 +18,28 @@
     },
     "rooCline.terminal.shellIntegration.enabled": false,
     "rooCline.terminal.shellIntegration.showWarning": false,
-    "roo-cline.vsCodeLmModelSelector": {}
+    "roo-cline.vsCodeLmModelSelector": {},
+
+    "verilog.ctags.path": "/opt/homebrew/bin/ctags",
+
+    "verilog.project.enabled": true,
+    "verilog.project.includeDirs": [
+        "lib/essential",
+        "lib/display",
+        "lib/graphics",
+        "lib/clock/ice40",
+        "lib/maths",
+        "lib/memory"
+    ],
+
+    "verilog.linting.linter": "verilator",
+    "verilog.linting.useProjectContext": true,
+    "verilog.linting.verilator.includePath": [
+        "lib/essential",
+        "lib/display",
+        "lib/graphics",
+        "lib/clock/ice40",
+        "lib/maths",
+        "lib/memory"
+    ]
 }
