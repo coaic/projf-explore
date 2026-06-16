@@ -7,16 +7,17 @@ SHELL = /bin/sh
 FPGA_PKG = sg48
 FPGA_TYPE = up5k
 PCF = icebreaker.pcf
+PROG = square
 
 # included modules
 PATH_LIB = ../../../lib
 ADD_SRC += ${PATH_LIB}/clock/ice40/clock_480p.sv
 ADD_SRC += ../simple_480p.sv
 
-square: square.rpt square.bin
-flag_ethiopia: flag_ethiopia.rpt flag_ethiopia.bin
-flag_sweden: flag_sweden.rpt flag_sweden.bin
-colour: colour.rpt colour.bin
+square: square.rpt square.bin square-pnr.json
+flag_ethiopia: flag_ethiopia.rpt flag_ethiopia.bin flag_ethiopia-pnr.json
+flag_sweden: flag_sweden.rpt flag_sweden.bin flag_sweden-pnr.json
+colour: colour.rpt colour.bin colour-pnr.json
 
 # synthesis
 %.json: top_%.sv $(ADD_SRC)
@@ -26,6 +27,10 @@ colour: colour.rpt colour.bin
 %.asc: %.json
 	nextpnr-ice40 --${FPGA_TYPE} --package ${FPGA_PKG} --json $< --pcf ${PCF} --asc $@
 
+# nextpnr report
+%-pnr.json: %.asc
+	nextpnr-ice40 --${FPGA_TYPE} --package ${FPGA_PKG} --json $(basename $<).json --pcf ${PCF} --asc $< --report $@
+
 # timing
 %.rpt: %.asc
 	icetime -d ${FPGA_TYPE} -mtr $@ $<
@@ -34,9 +39,12 @@ colour: colour.rpt colour.bin
 %.bin: %.asc
 	icepack $< $(subst top_,,$@)
 
+prog: $(PROG).bin
+	iceprog $<
+
 all: square flag_ethiopia flag_sweden colour
 
 clean:
-	rm -f *.json *.asc *.rpt *.bin *yosys.log
+	rm -f *.json *.asc *.rpt *.bin *yosys.log *-pnr.json
 
-.PHONY: all clean
+.PHONY: all prog clean

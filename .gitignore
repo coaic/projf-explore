@@ -13,6 +13,9 @@ webtalk.*
 *yosys.log
 *.bin
 *.rpt
+*.dot
+*.svg
+*-pnr.json
 
 # ECP5
 *yosys.log

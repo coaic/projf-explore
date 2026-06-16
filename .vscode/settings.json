@@ -34,12 +34,14 @@
 
     "verilog.linting.linter": "verilator",
     "verilog.linting.useProjectContext": true,
+    "verilog.linting.verilator.arguments": "-y graphics/fpga-graphics",
     "verilog.linting.verilator.includePath": [
         "lib/essential",
         "lib/display",
         "lib/graphics",
         "lib/clock/ice40",
         "lib/maths",
-        "lib/memory"
+        "lib/memory",
+        "lib/null/ice40"
     ]
 }
